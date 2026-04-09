@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professores — Prisma</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="logo-icon">⚡</span><span class="brand-text">Prisma</span></div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebar-user"></div>
+      <button class="btn-logout" onclick="Auth.logout()">↩ Sair</button>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="topbar-title" id="topbar-title">Gerenciar Alunos</h1>
+      <div class="topbar-right"><a href="perfil.html" class="topbar-avatar" id="topbar-avatar"></a></div>
+    </header>
+    <div class="page-content" id="page-content">
+      <div class="loading-spinner"><div class="spinner"></div><p>Carregando...</p></div>
+    </div>
+  </main>
+
+  <!-- MODAL: Adicionar atividade -->
+  <div class="modal-overlay hidden" id="modal-atividade">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Adicionar Projeto / Atividade</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-atividade')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="form-note">Aluno: <strong id="ativ-aluno-nome">—</strong></p>
+        <input type="hidden" id="ativ-aluno-id" />
+        <div class="form-group"><label>Título do Projeto / Atividade</label><input type="text" id="ativ-titulo" placeholder="Ex: TCC — Sistema de Gestão Escolar" /></div>
+        <div class="form-group"><label>Descrição</label><textarea id="ativ-desc" rows="3" placeholder="Descreva o projeto e o papel do aluno..."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label>Início</label><input type="month" id="ativ-inicio" /></div>
+          <div class="form-group"><label>Fim</label><input type="month" id="ativ-fim" /></div>
+        </div>
+        <div class="form-group"><label>Tecnologias / Tags</label><input type="text" id="ativ-tags" placeholder="Ex: Python, React (separe por vírgula)" /></div>
+        <div class="form-group"><label>Papel do aluno</label><input type="text" id="ativ-papel" placeholder="Ex: Desenvolvedor Principal, Pesquisador..." /></div>
+        <div id="ativ-alert" class="alert hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-atividade')">Cancelar</button>
+        <button class="btn btn-primary" onclick="Professor.saveAtividade()">Adicionar ao Perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Anotação privada -->
+  <div class="modal-overlay hidden" id="modal-nota">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Anotação Privada</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-nota')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">🔒 Esta anotação é <strong>visível apenas para empresas</strong>. O aluno não tem acesso.</div>
+        <p class="form-note">Aluno: <strong id="nota-aluno-nome">—</strong></p>
+        <input type="hidden" id="nota-aluno-id" />
+        <div class="form-group">
+          <label>Anotação (máx. 800 caracteres)</label>
+          <textarea id="nota-conteudo" rows="5" maxlength="800" placeholder="Ex: Aluno demonstrou excelente proatividade..."></textarea>
+          <small class="char-count" id="nota-char">0 / 800 caracteres</small>
+        </div>
+        <div id="nota-alert" class="alert hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-nota')">Cancelar</button>
+        <button class="btn btn-primary" onclick="Professor.saveNota()">Salvar Anotação</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Ver anotação -->
+  <div class="modal-overlay hidden" id="modal-ver-nota">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Anotação Privada — <span id="ver-nota-nome"></span></h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-ver-nota')">✕</button>
+      </div>
+      <div class="modal-body" id="modal-ver-nota-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-ver-nota')">Fechar</button>
+        <button class="btn btn-primary" id="btn-editar-nota">Editar Anotação</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/aluno.js"></script>
+  <script src="js/professor.js"></script>
+  <script src="js/empresa.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

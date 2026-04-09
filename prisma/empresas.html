@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscar Talentos — CapacitaJob</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="logo-icon">⚡</span><span class="brand-text">Prisma</span></div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebar-user"></div>
+      <button class="btn-logout" onclick="Auth.logout()">↩ Sair</button>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="topbar-title" id="topbar-title">Buscar Talentos</h1>
+      <div class="topbar-right"><a href="perfil.html" class="topbar-avatar" id="topbar-avatar"></a></div>
+    </header>
+    <div class="page-content" id="page-content">
+      <div class="loading-spinner"><div class="spinner"></div><p>Carregando...</p></div>
+    </div>
+  </main>
+
+  <!-- MODAL: Ver perfil completo -->
+  <div class="modal-overlay hidden" id="modal-perfil-aluno">
+    <div class="modal modal-xl">
+      <div class="modal-header">
+        <h3>Perfil do Candidato</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-perfil-aluno')">✕</button>
+      </div>
+      <div class="modal-body" id="modal-perfil-aluno-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-perfil-aluno')">Fechar</button>
+        <button class="btn btn-primary" id="btn-contato-modal" onclick="Empresa.openContatoFromModal()">✉ Entrar em Contato</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Contato -->
+  <div class="modal-overlay hidden" id="modal-contato">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Entrar em Contato</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-contato')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="form-note">Candidato: <strong id="contato-aluno-nome">—</strong></p>
+        <input type="hidden" id="contato-aluno-id" />
+        <div class="form-group">
+          <label>Tipo de contato</label>
+          <select id="contato-tipo"><option value="mensagem">Mensagem livre</option><option value="entrevista">Convite para entrevista</option></select>
+        </div>
+        <div id="contato-entrevista-fields" class="hidden">
+          <div class="form-group"><label>Data e hora sugerida</label><input type="datetime-local" id="contato-data" /></div>
+        </div>
+        <div class="form-group"><label>Mensagem</label><textarea id="contato-msg" rows="4" placeholder="Olá! Vi seu perfil na Prisma..."></textarea></div>
+        <div id="contato-alert" class="alert hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-contato')">Cancelar</button>
+        <button class="btn btn-primary" onclick="Empresa.sendContato()">Enviar ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/aluno.js"></script>
+  <script src="js/professor.js"></script>
+  <script src="js/empresa.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
