@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil — Prisma</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="app-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="logo-icon">⚡</span><span class="brand-text">Prisma</span></div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebar-user"></div>
+      <button class="btn-logout" onclick="Auth.logout()">↩ Sair</button>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <main class="main-content">
+    <header class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="topbar-title" id="topbar-title">Meu Perfil</h1>
+      <div class="topbar-right"><a href="perfil.html" class="topbar-avatar" id="topbar-avatar"></a></div>
+    </header>
+    <div class="page-content" id="page-content">
+      <div class="loading-spinner"><div class="spinner"></div><p>Carregando perfil...</p></div>
+    </div>
+  </main>
+
+  <!-- MODAL EDITAR PERFIL -->
+  <div class="modal-overlay hidden" id="modal-perfil">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Editar Perfil</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-perfil')">✕</button>
+      </div>
+      <div class="modal-body" id="modal-perfil-body"></div>
+    </div>
+  </div>
+
+  <!-- MODAL ADD EXPERIÊNCIA -->
+  <div class="modal-overlay hidden" id="modal-exp">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Adicionar Experiência</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-exp')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label>Tipo</label><select id="exp-tipo"><option value="estagio">Estágio</option><option value="freelance">Freelance</option><option value="projeto">Projeto Pessoal</option><option value="voluntario">Voluntariado</option></select></div>
+        <div class="form-group"><label>Cargo / Título</label><input type="text" id="exp-titulo" placeholder="Ex: Desenvolvedor Frontend" /></div>
+        <div class="form-group"><label>Empresa / Organização</label><input type="text" id="exp-empresa" placeholder="Ex: TechStart Ltda." /></div>
+        <div class="form-row">
+          <div class="form-group"><label>Início</label><input type="month" id="exp-inicio" /></div>
+          <div class="form-group"><label>Fim</label><input type="month" id="exp-fim" /></div>
+        </div>
+        <div class="form-group"><label>Descrição</label><textarea id="exp-desc" rows="3" placeholder="Descreva suas responsabilidades..."></textarea></div>
+        <div id="exp-alert" class="alert hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-exp')">Cancelar</button>
+        <button class="btn btn-primary" onclick="Aluno.saveExperiencia()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ADD CERTIFICADO -->
+  <div class="modal-overlay hidden" id="modal-cert">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Adicionar Certificado</h3>
+        <button class="modal-close" onclick="UI.closeModal('modal-cert')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group"><label>Nome do Certificado</label><input type="text" id="cert-nome" placeholder="Ex: AWS Cloud Practitioner" /></div>
+        <div class="form-group"><label>Emissor</label><input type="text" id="cert-emissor" placeholder="Ex: Amazon Web Services" /></div>
+        <div class="form-row">
+          <div class="form-group"><label>Data de Emissão</label><input type="month" id="cert-data" /></div>
+          <div class="form-group"><label>Validade (opcional)</label><input type="month" id="cert-validade" /></div>
+        </div>
+        <div id="cert-alert" class="alert hidden"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="UI.closeModal('modal-cert')">Cancelar</button>
+        <button class="btn btn-primary" onclick="Aluno.saveCertificado()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/aluno.js"></script>
+  <script src="js/professor.js"></script>
+  <script src="js/empresa.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
